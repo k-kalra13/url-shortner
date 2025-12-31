@@ -1,0 +1,34 @@
+// What does this look like in the database?
+// {
+//   originalUrl: "https://google.com",
+//   shortUrl: "g12",
+//   visitHistory: [
+//     { timestamp: 1712345678 },
+//     { timestamp: 1712345690 },
+//     { timestamp: 1712345720 }
+//   ]
+// }
+
+
+
+mongoose.model(...)
+            This is a function given by Mongoose.
+
+            It is used to:
+            👉 Create a connection between your code and a MongoDB collection
+
+'URL' (first argument)
+            This is the name of the model.
+
+urlSchema (second argument)
+            This tells MongoDB:
+
+            “Every document in this collection must follow this structure.”
+
+// URL becomes a powerful object that can:
+
+// URL.create()
+// URL.find()
+// URL.findById()
+// URL.deleteOne()
+// URL.updateOne()
