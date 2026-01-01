@@ -12,7 +12,8 @@ async function handleGenerateNewShortUrl(req, res) {
         visitHistory: []
     });
     console.log("Data inserted into the database");
-    return res.json({ id: shortId });
+    // return res.json({ id: shortId });
+    return res.render('home', { id : `http://localhost:8000/url/${shortId}` });  // Render the home view with the generated short URL
 }
 
 async function handleGetUrlAnalytics(req, res) {

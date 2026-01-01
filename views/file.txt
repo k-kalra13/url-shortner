@@ -1,0 +1,10 @@
+ <!-- <h1>Hey From Server</h1>
+    <h2>List of URLs</h2>
+    <% urls.forEach(url=> { %> 
+        <div>
+            <p>Original URL: <%= url.originalUrl %></p>
+            <p>Short URL: <%= url.shortUrl %></p>
+            <p>Created At: <%= url.createdAt %></p>
+            <p>Updated At: <%= url.updatedAt %></p>
+        </div>
+    <% }) %> -->
