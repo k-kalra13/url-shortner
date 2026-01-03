@@ -11,6 +11,10 @@ const urlSchema = new mongoose.Schema({
         unique: true
     },
     visitHistory: [ {timestamp: {type: Number}}],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,     // jo user ne yeh url create kiya hai uska id hoga yahan par
+        ref: 'users',                              // reference to the users collection
+    }
 }, 
 { timestamps: true }
 );

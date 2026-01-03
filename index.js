@@ -1,11 +1,18 @@
 const express = require('express');
 const connectDB = require('./connct'); // Import the database connection function
-const urlRoutes = require('./routes/url'); // Import the URL routes
 const app = express(); // we do this to create an express application, which is a function that can be used to configure and run a web server.
 const URL = require('./models/url'); // Import the URL model
+const {restrictToLoggedinUserOnly , checkAuth} = require("./middleware/auth");
+
+const urlRoutes = require('./routes/url'); // Import the URL routes
+const staticRoute = require('./routes/staticRouter'); // Import the static routes
+const userRoute = require('./routes/user'); // Import the user routes
+
 const port = 8000;
 const Path = require('path'); // Import the path module for handling file paths
-const staticRoute = require('./routes/staticRouter');
+const cookieParser = require('cookie-parser');  // Import the cookie-parser middleware
+
+
 
 connectDB("mongodb://127.0.0.1:27017/shorturl")
   .then(() => console.log("Connected to DB"))
@@ -13,10 +20,14 @@ connectDB("mongodb://127.0.0.1:27017/shorturl")
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies 
+app.use(cookieParser()); // Middleware to parse cookies from incoming requests
 
 
-app.use("/url", urlRoutes); // Use the URL routes for any requests to /url
-app.use("/", staticRoute); // Use the static routes for the root path
+
+// agar tumhe routes ke under user ki details chahiye toh tumhe restrictToLoggedinUserOnly middleware use karna padega
+app.use("/url", restrictToLoggedinUserOnly, urlRoutes); // Use the URL routes for any requests to /url
+app.use("/user", userRoute); // Use the user routes for any requests to /user
+app.use("/", checkAuth, staticRoute); // Use the static routes for the root path
 
 app.get("/url/:shortid", async (req, res) => {
     const shortId = req.params.shortid; // Extract the shortId from the URL parameters

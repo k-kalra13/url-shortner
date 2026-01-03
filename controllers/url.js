@@ -9,7 +9,8 @@ async function handleGenerateNewShortUrl(req, res) {
     await URL.create({
         originalUrl: body.url, 
         shortUrl: shortId,
-        visitHistory: []
+        visitHistory: [],
+        createdBy: req.user._id,   // req.user is set by the restrictToLoggedinUserOnly middleware
     });
     console.log("Data inserted into the database");
     // return res.json({ id: shortId });
